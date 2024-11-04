@@ -10,9 +10,11 @@
 #include <memory>
 #include "Components/ActRenderer.h"
 #include "Components/ActMover.h"
+#include "Subject.h"
+#include "Observer.h"
 
 
-class Actor {
+class Actor : public Subject, public Observer {
 public:
     //return rect and info
     SDL_Rect *getRect(){return rect;}
@@ -48,6 +50,11 @@ public:
 
     void moveObject();
 
+    //update foo from observer
+    void update() override {
+        SDL_Log("Called update on an actor w/ no subscriptions -- eventually add error logging");
+    }
+
     Actor(int xCoord, int yCoord, int height, int width){
         rect = new SDL_Rect;
         rect->x = xCoord;
@@ -56,12 +63,32 @@ public:
         rect->w = width;
     }
 
-private:
+protected:
     //Major Components
     std::shared_ptr<ActRenderer> actRenderer;
     std::shared_ptr<ActMover> actMover;
 
     SDL_Rect *rect;
+
+
+};
+
+class Tree : public Actor{
+public:
+    Tree(int xCoord, int yCoord, int height, int width, bool fruity) : Actor(xCoord, yCoord, height, width) {
+        hasFruit = fruity;
+    }
+
+    void update() override {
+        SDL_Log("observer pattern fired. Testing removal from vector on demand.");
+        if (hasFruit){
+            changeTexture(0);
+            hasFruit = false;
+            //Detach from subject
+        }
+    }
+private:
+    bool hasFruit;
 };
 
 

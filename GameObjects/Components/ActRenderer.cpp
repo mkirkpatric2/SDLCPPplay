@@ -12,6 +12,12 @@ ActRenderer::ActRenderer(SDL_Renderer *rend,std::vector<std::string> paths) {
 
 void ActRenderer::renderActor(SDL_Renderer *rend, SDL_Rect *rect) {
     SDL_RenderCopy(rend, renderTexture, NULL, rect);
+}
+
+void ActRenderer::renderTile(SDL_Renderer *rend, SDL_Rect *rect, int r, int g, int b) {
+    SDL_SetRenderDrawColor(rend, r, g, b, 255);
+    SDL_RenderFillRect(rend, rect);
+    SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
 
 }
 

@@ -8,6 +8,7 @@
 #include <SDL.h>
 #include "Actor.h"
 #include "../MovementManager.h"
+#include "Tile.h"
 
 class ActorManager {
 public:
@@ -30,9 +31,27 @@ public:
         return tree;
     }
 
+    Tree createFruitTree(SDL_Renderer *rend, MovementManager *movementManager, int x, int y){
+        auto actRenderer = std::make_shared<ActRenderer>(rend, treeIMGs);
+        Tree tree = Tree(x,y,50,50, true);
+        tree.setRenderer(actRenderer);
+        tree.changeTexture(1);
+        movementManager->addCollidableObject(&tree);
+        return tree;
+    }
+
+    Tile createTileTrigger(SDL_Renderer *rend, MovementManager *movementManager, int r, int g, int b, int x, int y){
+        auto actRenderer = std::make_shared<ActRenderer>(rend, treeIMGs);
+        Tile tile = Tile(r, g, b, x,y,50,50);
+        tile.setRenderer(actRenderer);
+        movementManager->addWalkableTileObject(&tile);
+        return tile;
+    }
+
     ActorManager(){
         playerIMGs.emplace_back(R"(.\objectArt\player\chainChomp\rOpen.png)");
         treeIMGs.emplace_back(R"(.\objectArt\staticTileArt\Tree.png)");
+        treeIMGs.emplace_back(R"(.\objectArt\staticTileArt\FruitTree.png)");
     }
 private:
     std::vector<std::string> playerIMGs;

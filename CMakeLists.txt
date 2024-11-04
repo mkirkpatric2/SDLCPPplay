@@ -31,6 +31,12 @@ add_executable(TwoDimWalkGame main.cpp
         GameObjects/Components/ActMover.h
         GameObjects/ActorManager.cpp
         GameObjects/ActorManager.h
+        GameObjects/Observer.cpp
+        GameObjects/Observer.h
+        GameObjects/Subject.cpp
+        GameObjects/Subject.h
+        GameObjects/Tile.cpp
+        GameObjects/Tile.h
 )
 
 target_link_libraries(TwoDimWalkGame ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})

@@ -127,6 +127,7 @@ std::vector<char> Actor::readCollidedBorders() {
         return actMover->readCollidedBorders();
     } else {
         //ERROR HANDLE
+
         SDL_Log("No Mover Present in Actor XX");
     }
 }

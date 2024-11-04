@@ -57,6 +57,12 @@ void MovementManager::moveObjects(float mseconds) {
         }
 
         //address walkable collisions
+        for (auto& walkObj: walkOverCollidableObjects) {
+            if(SDL_HasIntersection(movIt->getRect(), walkObj->getRect())){
+                walkObj->notifyObserver(true);
+            }
+        }
+
         //FILL ***
 
 
@@ -105,4 +111,8 @@ void MovementManager::addMovableObject(Actor *actor) {
 
 void MovementManager::addCollidableObject(Actor *actor) {
     collidableObjects.push_back(actor);
+}
+
+void MovementManager::addWalkableTileObject(Tile *tile) {
+    walkOverCollidableObjects.push_back(tile);
 }

@@ -6,21 +6,24 @@
 #define TWODIMWALKGAME_MOVEMENTMANAGER_H
 #include <vector>
 #include "GameObjects/Actor.h"
+#include "GameObjects/Tile.h"
 #include <algorithm>
 
 
 class MovementManager {
-private:
-    std::vector<Actor*> movableObjects;
-    std::vector<Actor*> collidableObjects;
+
 public:
     void addMovableObject(Actor *actor);
     void addCollidableObject(Actor *actor);
+    void addWalkableTileObject(Tile *tile);
     void moveObjects(float mseconds);
     // move "shadow" objects
     // check collision with "shadow objects"
     // act appropriately
-
+private:
+    std::vector<Actor*> movableObjects;
+    std::vector<Actor*> collidableObjects;
+    std::vector<Tile*> walkOverCollidableObjects;
 };
 
 

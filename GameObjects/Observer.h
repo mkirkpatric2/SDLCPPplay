@@ -4,7 +4,6 @@
 
 #ifndef TWODIMWALKGAME_OBSERVER_H
 #define TWODIMWALKGAME_OBSERVER_H
-#include "./Subject.h"
 
 class Observer {
 public:

@@ -46,22 +46,23 @@ int main(int argv, char** args) {
 
     // instantiate player.
     ActorManager actorManager;
-    Actor player = actorManager.createPlayer(rend, &movementManager); //why can't I add the player I return to the movement manager.
+    Actor player = actorManager.createPlayer(rend, &movementManager);
 
+    //instantiate sample tree.
+    Tree ftree = actorManager.createFruitTree(rend, &movementManager, 100, 100);
 
-    //instantiate tree.
-    Actor tree = actorManager.createTree(rend, &movementManager, 100, 100);
-    //test Collision
+    //inst sample tile
+    Tile tile1 = actorManager.createTileTrigger(rend, &movementManager, 255, 0, 0, 600, 600);
+    Tile tile2 = actorManager.createTileTrigger(rend, &movementManager, 255, 0, 0, 500, 500);
+
+    tile1.attachObserver(&ftree);
+    tile2.attachObserver(&ftree);
+    //attach ftree
 
     Uint32 frameStart;
     int frameTime;
     float deltaTime;
 
-
-
-    //Whgy does this break with one entry?
-    //TRY WITH 2 OR MORE.
-//    movementManager.printCollidableXs();
 
     Uint32 lastTime = SDL_GetTicks();
     while (true) {
@@ -80,6 +81,9 @@ int main(int argv, char** args) {
             }
 
         }
+
+
+
         Uint32 currentTime = SDL_GetTicks();
         deltaTime = (currentTime - lastTime);//in milliseconds
         lastTime = currentTime;
@@ -92,7 +96,9 @@ int main(int argv, char** args) {
         //render
         SDL_RenderClear(rend);
 
-        tree.renderActor(rend);
+        ftree.renderActor(rend);
+        tile1.renderTile(rend);
+        tile2.renderTile(rend);
         player.renderActor(rend);
 
         SDL_RenderPresent(rend);
